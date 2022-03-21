@@ -19,15 +19,15 @@ type SequenceChecker interface {
 }
 
 func (d *Sequence) Check() (int, int, error) {
-	for i := 1; i < d.size; i++ {
-		d.counter[d.data[i]]++
+	for _, v := range d.data {
+		d.counter[v]++
 	}
 
 	var x, y int
-	for i := 1; i < d.size; i++ {
-		if d.counter[i] == 0 {
+	for i, v := range d.counter {
+		if v == 0 {
 			x = i
-		} else if d.counter[i] > 1 {
+		} else if v > 1 {
 			y = i
 		}
 
@@ -53,7 +53,7 @@ func main() {
 	}
 
 	scanner := bufio.NewScanner(os.Stdin)
-	for i := 1; i < n+1; i++ {
+	for i, _ := range d.data[1:] {
 		scanner.Scan()
 		d.data[i], e = strconv.Atoi(scanner.Text())
 		if e != nil {
